@@ -1,10 +1,33 @@
-// Write a program that accepts one or more numbers as command-line arguments
-//  and prints the sum of those numbers to the console (stdout).
+//Write a program that uses a single synchronous filesystem operation to
+  //read a file and print the number of newlines (\n) it contains to the
+  //console (stdout), similar to running cat file | wc -l.
 
-var result = 0
+  //The full path to the file to read will be provided as the first
+  //command-line argument (i.e., process.argv[2]). You do not need to make
+  //your own test file.
+//
+var fs = require('fs');
 
-  for (var i = 2; i < process.argv.length; i++)
+var contents = fs.readFileSync(process.argv[2]);
+//var contents = fs.readFileSync(process.argv[2], 'utf8');
 
-  result += Number(process.argv[i])
+var lines = contents.toString().split('\n').length - 1;
+//var lines = contents.split('\n').length - 1;
 
-  console.log(result)
+// fs.readFileSync(process.argv[2], 'utf8').split('\n').length - 1;
+
+console.log(lines)
+
+
+
+/// OFFICIAL SOLUTION ///
+
+var fs = require('fs')
+
+ var contents = fs.readFileSync(process.argv[2])
+ var lines = contents.toString().split('\n').length - 1
+ console.log(lines)
+
+// note you can avoid the .toString() by passing 'utf8' as the
+     // second argument to readFileSync, then you'll get a String!
+     // fs.readFileSync(process.argv[2], 'utf8').split('\n').length - 1
